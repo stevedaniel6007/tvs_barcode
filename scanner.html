@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>WebCodeCamJS</title>
+        <script src="https://unpkg.com/html5-qrcode" type="text/javascript">
+
+</script>
+    </head>
+    <body>
+        <div id="reader" width="600px"></div>
+
+
+       <script>
+const html5QrCode = new Html5Qrcode("reader");
+const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+  alert(decodedText)
+};
+const config = { fps: 10, qrbox: { width: 800, height: 400 } };
+
+
+// If you want to prefer back camera
+html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
+
+       </script>
+    </body>
+</html>
