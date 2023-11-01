@@ -19,13 +19,13 @@
 <div>
     <h1 style="text-align: center;color: darkblue;">OR</h1>
         <input type="text"  placeholder="Admission Number" id="fname" name="fname"><br>
-    <button onclick="subm()">Continue</button> 
+    <button onclick="subm(document.getElementById('fname').value)">Continue</button> 
 </div>
 
        <script>
         
 
-const a = supabase.createClient('https://uixsrngitemznazrafuk.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpeHNybmdpdGVtem5henJhZnVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODcxNTE0NjUsImV4cCI6MjAwMjcyNzQ2NX0.TIgGS031OvWdF9dAHT9v6-YmRsrcf67oMrq1fUaK3eE')
+const a = supabase.createClient('https://rsfcqodmucagrxohmkgx.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJzZmNxb2RtdWNhZ3J4b2hta2d4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjA5MjY5NDksImV4cCI6MTk3NjUwMjk0OX0.emUFAjUIpou6UOyQlIzvlvv9E4tClWoluh6SOoMNc8I')
 console.log(a)
 async function check(){
     const { data: { user } } = await a.auth.getUser()
@@ -35,19 +35,68 @@ async function check(){
 
 
 }
+check()
 const html5QrCode = new Html5Qrcode("reader");
 const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-  alert(decodedText)
+  subm(decodedText)
 };
 const config = { fps: 10, qrbox: { width: 800, height: 400 } };
 
 
 // If you want to prefer back camera
 html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
-async function subm(){
-    const l = document.getElementById('fname').value;
+async function subm(l){
+    
     const { data, error } = await a.from('Bus').select('*').eq('Admission Num',parseInt(l))
+    const { data:ra} = await a.from('Maps').select('*');
+
+    const r = ra
     console.log(data)
+    let name; let cl; let stop;
+    name = data[0]["StudName"]
+    cl = data[0]["Class"]
+    stop = data[0]["Bus Stop"]
+    console.log(name,cl,stop)
+    const eve = "Entry"
+
+let dts = new Date()
+const date = new Date()
+dts= new Date(date.getTime() - date.getTimezoneOffset()*60000);
+
+let c=await check(l)
+if(!c){
+  c=undefined
+}
+console.log(c)
+const d = new Date()
+const bd = new Date(c&&c.length>0?c[c.length-1]["time"]:'null')
+const diffInMillis = dts.getTime() - bd.getTime()
+let isLessThan1Hour = diffInMillis < 60 * 60 * 1000;
+if(!c){
+    isLessThan1Hour = false
+}
+const at=Object.values(r).length
+for(let i = 0 ; i <at; i++){
+  if(r[i]["Area"]==stop){
+    route=r[i]["Route"]
+  }
+}
+if(!isLessThan1Hour){
+const { error } = await a
+.from('Bus Log')
+.insert({ uid:l,name:name, time:dts,event:eve,stop:stop, route:route, date:d })
+if(error){
+  console.log(error)
+    }
+    else{
+      setTimeout(()=>{
+       alert('ok')
+      },3000)
+    }    
+
+}else{
+alert('You cannot enter same value again. You have to wait for an hour between two entries.')
+}
 }
        </script>
     </body>
