@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    </head>
+    <body>
+        <input id="static" placeholder="Enter Static Code" type="password">
+        <button onclick="signin()">Continue</button>
+        <script>
+            const a = supabase.createClient('https://uixsrngitemznazrafuk.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpeHNybmdpdGVtem5henJhZnVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODcxNTE0NjUsImV4cCI6MjAwMjcyNzQ2NX0.TIgGS031OvWdF9dAHT9v6-YmRsrcf67oMrq1fUaK3eE')
+            console.log(a)
+async function signin(){
+const p = document.getElementById('static').value;
+    const { data, error } = await a.auth.signInWithPassword({
+  email: 'trial@gmail.com',
+  password: p,
+})
+if(error){
+alert(error.message)
+}
+else{
+    window.location.replace('/scanner.html')
+
+}
+}
+async function check(){
+    const { data: { user } } = await a.auth.getUser()
+    if(user!=null){
+        window.location.replace('/scanner.html')
+    }
+
+
+}
+
+        </script>
+    </body>
+    </html>

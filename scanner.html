@@ -13,14 +13,28 @@
 
     </head>
     <body>
-        <div id="reader" width="600px"></div>
-
+        <div id="reader" width="600px"> 
+          
+        </div>
+<div>
+    <h1 style="text-align: center;color: darkblue;">OR</h1>
+        <input type="text"  placeholder="Admission Number" id="fname" name="fname"><br>
+    <button onclick="subm()">Continue</button> 
+</div>
 
        <script>
         
 
-const supabase = createClient('https://uixsrngitemznazrafuk.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpeHNybmdpdGVtem5henJhZnVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODcxNTE0NjUsImV4cCI6MjAwMjcyNzQ2NX0.TIgGS031OvWdF9dAHT9v6-YmRsrcf67oMrq1fUaK3eE')
-console.log(supabase)
+const a = supabase.createClient('https://uixsrngitemznazrafuk.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpeHNybmdpdGVtem5henJhZnVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODcxNTE0NjUsImV4cCI6MjAwMjcyNzQ2NX0.TIgGS031OvWdF9dAHT9v6-YmRsrcf67oMrq1fUaK3eE')
+console.log(a)
+async function check(){
+    const { data: { user } } = await a.auth.getUser()
+    if(user==null){
+        window.location.replace('/index.html')
+    }
+
+
+}
 const html5QrCode = new Html5Qrcode("reader");
 const qrCodeSuccessCallback = (decodedText, decodedResult) => {
   alert(decodedText)
@@ -30,7 +44,11 @@ const config = { fps: 10, qrbox: { width: 800, height: 400 } };
 
 // If you want to prefer back camera
 html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
-
+async function subm(){
+    const l = document.getElementById('fname').value;
+    const { data, error } = await a.from('Bus').select('*').eq('Admission Num',parseInt(l))
+    console.log(data)
+}
        </script>
     </body>
 </html>
