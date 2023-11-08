@@ -64,6 +64,11 @@ const config = { fps: 10, qrbox: { width: 300, height: 200 } };
 // If you want to prefer back camera
 html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
 async function subm(l){
+  html5QrCode.stop().then((ignore) => {
+console.log('stopped')}).catch((err) => {
+  // Stop failed, handle it.
+  alert(err)
+});
     const { data, error } = await a.from('New').select('*').eq('Admission Num',parseInt(l))
 
     console.log(data)
@@ -107,7 +112,8 @@ if(error){
   console.log(error)
     }
     else{
-window.location.replace('/done.html')
+      html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
+
     }    
 
 }else{
