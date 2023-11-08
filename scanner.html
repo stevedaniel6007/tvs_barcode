@@ -17,7 +17,7 @@
 
     </head>
     <body>
-        <div id="reader" height="200px" width="200px"> 
+        <div class="scanner hidden" id="reader" height="200px" width="200px"> 
           
         </div>
 <div class="flex flex-col space-y-2 px-4 py-6">
@@ -46,7 +46,7 @@
 
 <div>
 <label>Type a route:</label>
-<input class="w-full mt-2 border border-neutral-300 rounded-sm py-2 px-3 outline-none" type="number" id="route" placeholder="Type Route Number">
+<input onchange="show(e)" class="w-full mt-2 border border-neutral-300 rounded-sm py-2 px-3 outline-none" type="number" id="route" placeholder="Type Route Number">
 </div>
 </div>
 <div class="flex flex-row content-center items-center px-3">
@@ -71,7 +71,21 @@ const qrCodeSuccessCallback = (decodedText, decodedResult) => {
   subm(decodedText)
 };
 const config = { fps: 10, qrbox: { width: 300, height: 200 } };
+let sc = document.getElementsByClassName('scanner')
+let rt = document.getElementsById('route')
+rt.addEventListener("change", myscript(rt.value));
+function myscript(s){
+if(s!=null){
+  sc.classList.remove('hidden')
+}
+}
+if(rt.value!=null && rt.value.length!=0){
+  sc.classList.remove('hidden')
+}
+if(rt.value==null && rt.value.length==0){
+  sc.classList.add('hidden')
 
+}
 
 // If you want to prefer back camera
 html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
