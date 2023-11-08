@@ -71,15 +71,16 @@ const html5QrCode = new Html5Qrcode("reader");
 const qrCodeSuccessCallback = (decodedText, decodedResult) => {
   subm(decodedText)
 };
-document.getElementById('reader').classList.add('hidden')
+
 function ccc(a){
   if(a.value!=null){
     let s = document.getElementsByClassName('scanner')
     for(i=0;i<s.length;i++){
       s[i].classList.remove('hidden')
     }
+    html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
+
     document.getElementById('proceed').classList.add('hidden')
-    document.getElementById('reader').classList.remove('hidden')
 
   }
 }
@@ -87,7 +88,6 @@ const config = { fps: 10, qrbox: { width: 300, height: 200 } };
 let sc = document.getElementsByClassName('scanner')
 
 // If you want to prefer back camera
-html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
 async function subm(l){
   html5QrCode.stop().then((ignore) => {
 console.log('stopped')}).catch((err) => {
