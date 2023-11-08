@@ -6,10 +6,11 @@
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.5/base.min.css">
     </head>
-    <body>
+    <body class="flex flex-col items-center content-center">
+        <div class="flex flex-col space-y-2 my-auto">
         <input class="w-full mt-2 border border-neutral-300 rounded-sm py-2 px-3 outline-none" id="static" placeholder="Enter Static Code" type="password">
         <button class="font-medium font-sans mt-0 shadow-lg w-full rounded-md text-white bg-blue-500 px-6 mx-auto py-3" onclick="signin()">Continue</button>
-        <script>
+        </div> <script>
 const a = supabase.createClient('https://rsfcqodmucagrxohmkgx.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJzZmNxb2RtdWNhZ3J4b2hta2d4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjA5MjY5NDksImV4cCI6MTk3NjUwMjk0OX0.emUFAjUIpou6UOyQlIzvlvv9E4tClWoluh6SOoMNc8I')
             console.log(a)
 async function signin(){
