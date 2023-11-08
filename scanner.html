@@ -2,26 +2,44 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <title>WebCodeCamJS</title>
         <script src="https://unpkg.com/html5-qrcode" type="text/javascript">
-            
+
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.5/base.min.css">
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+
 
     </head>
     <body>
         <div id="reader" width="600px"> 
           
         </div>
-<div>
-    <h1 style="text-align: center;color: darkblue;">OR</h1>
-        <input type="text"  placeholder="Admission Number" id="fname" name="fname"><br>
-    <button onclick="subm(document.getElementById('fname').value)">Continue</button> 
-</div>
+<div class="flex flex-col space-y-2 px-4 py-6">
+  
+    <h1 class="text-blue-500 font-sans font-bold text-3xl text-center mb-6">OR</h1>
+        <input type="text" class="border border-neutral-300 rounded-sm py-2 px-3 outline-none"  placeholder="Admission Number" id="fname" name="fname"><br>
+        <label for="slot">Choose a slot:</label>
 
+<select class="border border-neutral-300 rounded-sm py-2 px-3 outline-none"  name="slot" id="slot">
+  <option value="7:00 AM">7:00 AM</option>
+  <option value="12:00 Noon">12:00 Noon</option>
+  <option value="2:00 PM">2:00 PM</option>
+
+</select>
+<div>
+<label>Choose a route:</label>
+<input class="w-full mt-2 border border-neutral-300 rounded-sm py-2 px-3 outline-none" type="number" id="route" placeholder="Type Route Number">
+</div>
+</div>
+<div class="flex flex-row content-center items-center px-3">
+    <button class="font-medium font-sans mt-0 shadow-lg w-full rounded-md text-white bg-blue-500 px-6 mx-auto py-3 " onclick="subm(document.getElementById('fname').value)">Continue</button> 
+</div>
        <script>
         
 
@@ -47,23 +65,29 @@ const config = { fps: 10, qrbox: { width: 800, height: 400 } };
 html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
 async function subm(l){
     
-    const { data, error } = await a.from('Bus').select('*').eq('Admission Num',parseInt(l))
-    const { data:ra} = await a.from('Maps').select('*');
+    const { data, error } = await a.from('New').select('*').eq('Admission Num',parseInt(l))
 
-    const r = ra
     console.log(data)
     let name; let cl; let stop;
     name = data[0]["StudName"]
     cl = data[0]["Class"]
-    stop = data[0]["Bus Stop"]
+    stop = document.getElementById('route').value
+    let slot = document.getElementById('slot').value
     console.log(name,cl,stop)
     const eve = "Entry"
 
 let dts = new Date()
 const date = new Date()
 dts= new Date(date.getTime() - date.getTimezoneOffset()*60000);
+async function cc(adm){
+  const {data,error }= await a.from('Bus Log').select("time").eq('uid',adm)
+  if(error){
+    alert(error)
 
-let c=await check(l)
+  }
+  else{return data}
+}
+let c=await cc(l)
 if(!c){
   c=undefined
 }
@@ -75,23 +99,16 @@ let isLessThan1Hour = diffInMillis < 60 * 60 * 1000;
 if(!c){
     isLessThan1Hour = false
 }
-const at=Object.values(r).length
-for(let i = 0 ; i <at; i++){
-  if(r[i]["Area"]==stop){
-    route=r[i]["Route"]
-  }
-}
+
 if(!isLessThan1Hour){
 const { error } = await a
 .from('Bus Log')
-.insert({ uid:l,name:name, time:dts,event:eve,stop:stop, route:route, date:d })
+.insert({ uid:l,name:name, time:dts,event:eve, route:stop, date:d, slot:slot })
 if(error){
   console.log(error)
     }
     else{
-      setTimeout(()=>{
-       alert('ok')
-      },3000)
+window.location.replace('/done.html')
     }    
 
 }else{
