@@ -73,7 +73,10 @@ const qrCodeSuccessCallback = (decodedText, decodedResult) => {
 };
 function ccc(a){
   if(a.value!=null){
-    document.getElementsByClassName('scanner').classList.remove('hidden')
+    let s = document.getElementsByClassName('scanner')
+    for(i=0;i<s.length;i++){
+      s[i].classList.remove('scanner')
+    }
     document.getElementById('proceed').classList.add('hidden')
 
   }
