@@ -31,7 +31,7 @@
   
     
     </select>
-        <input type="text" class="border border-neutral-300 rounded-sm py-2 px-3 outline-none"  placeholder="Admission Number" id="fname" name="fname"><br>
+        <input type="text" class="scanner hidden border border-neutral-300 rounded-sm py-2 px-3 outline-none"  placeholder="Admission Number" id="fname" name="fname"><br>
         <label for="slot">Choose a slot:</label>
 
 <select class="border border-neutral-300 rounded-sm py-2 px-3 outline-none"  name="slot" id="slot">
@@ -50,7 +50,8 @@
 </div>
 </div>
 <div class="flex flex-row content-center items-center px-3">
-    <button class="font-medium font-sans mt-0 shadow-lg w-full rounded-md text-white bg-blue-500 px-6 mx-auto py-3 " onclick="subm(document.getElementById('fname').value)">Continue</button> 
+  <button id="proceed" class="font-medium font-sans mt-0 shadow-lg w-full rounded-md text-white bg-blue-500 px-6 mx-auto py-3 " onclick="ccc(document.getElementById('route').value)">Proceed</button> 
+  <button class="scanner hidden font-medium font-sans mt-0 shadow-lg w-full rounded-md text-white bg-blue-500 px-6 mx-auto py-3 " onclick="subm(document.getElementById('fname').value)">Continue</button> 
 </div>
        <script>
         
@@ -70,22 +71,15 @@ const html5QrCode = new Html5Qrcode("reader");
 const qrCodeSuccessCallback = (decodedText, decodedResult) => {
   subm(decodedText)
 };
+function ccc(a){
+  if(a.value!=null && a.value.length>0){
+    document.getElementsByClassName('scanner').classList.remove('hidden')
+    document.getElementById('proceed').classList.add('hidden')
+
+  }
+}
 const config = { fps: 10, qrbox: { width: 300, height: 200 } };
 let sc = document.getElementsByClassName('scanner')
-let rt = document.getElementsById('route')
-rt.addEventListener("change", myscript(rt.value));
-function myscript(s){
-if(s!=null){
-  sc.classList.remove('hidden')
-}
-}
-if(rt.value!=null && rt.value.length!=0){
-  sc.classList.remove('hidden')
-}
-if(rt.value==null && rt.value.length==0){
-  sc.classList.add('hidden')
-
-}
 
 // If you want to prefer back camera
 html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
