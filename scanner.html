@@ -20,9 +20,11 @@
         <div class="" id="reader" height="200px" width="200px"> 
           
         </div>
-<div class="flex flex-col space-y-2 px-4 py-6">
+        <h1 class="text-blue-500 scanner hidden font-sans font-bold text-3xl text-center mb-6">OR</h1>
+        <input type="text" class="scanner hidden border border-neutral-300 rounded-sm py-2 px-3 outline-none"  placeholder="Admission Number" id="fname" name="fname"><br>
+
+<div id="kkk" class="flex flex-col space-y-2 px-4 py-6">
   
-    <h1 class="text-blue-500 scanner hidden font-sans font-bold text-3xl text-center mb-6">OR</h1>
     <label for="school">Choose a school:</label>
 
     <select class="border border-neutral-300 rounded-sm py-2 px-3 outline-none"  name="school" id="school">
@@ -31,7 +33,6 @@
   
     
     </select>
-        <input type="text" class="scanner hidden border border-neutral-300 rounded-sm py-2 px-3 outline-none"  placeholder="Admission Number" id="fname" name="fname"><br>
         <label for="slot">Choose a slot:</label>
 
 <select class="border border-neutral-300 rounded-sm py-2 px-3 outline-none"  name="slot" id="slot">
@@ -81,6 +82,7 @@ function ccc(a){
     html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
 
     document.getElementById('proceed').classList.add('hidden')
+    document.getElementById('kkk').classList.add('hidden')
 
   }
 }
