@@ -71,6 +71,7 @@ const html5QrCode = new Html5Qrcode("reader");
 const qrCodeSuccessCallback = (decodedText, decodedResult) => {
   subm(decodedText)
 };
+document.getElementById('reader').classList.add('hidden')
 function ccc(a){
   if(a.value!=null){
     let s = document.getElementsByClassName('scanner')
