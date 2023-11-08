@@ -40,8 +40,12 @@
   <option value="2:00 PM">2:00 PM</option>
 
 </select>
+<label>Type a bus number:</label>
+
+<input class="w-full mt-2 border border-neutral-300 rounded-sm py-2 px-3 outline-none" type="number" id="busno" placeholder="Type Bus Number">
+
 <div>
-<label>Choose a route:</label>
+<label>Type a route:</label>
 <input class="w-full mt-2 border border-neutral-300 rounded-sm py-2 px-3 outline-none" type="number" id="route" placeholder="Type Route Number">
 </div>
 </div>
@@ -85,6 +89,8 @@ console.log('stopped')}).catch((err) => {
     cl = data[0]["Class"]
     stop = document.getElementById('route').value
     let slot = document.getElementById('slot').value
+    let busno = document.getElementById('busno').value
+    let school = document.getElementById('school').value
     console.log(name,cl,stop)
     const eve = "Entry"
 
@@ -115,7 +121,7 @@ if(!c){
 if(!isLessThan1Hour){
 const { error } = await a
 .from('Bus Log')
-.insert({ uid:l,name:name, time:dts,event:eve, route:stop, date:d, slot:slot })
+.insert({ uid:l,name:name, time:dts,event:eve, school:school,busno:busno, route:stop, date:d, slot:slot })
 if(error){
   console.log(error)
     }
