@@ -91,7 +91,6 @@ function addtolist(l) {
     var entry = document.createElement('li');
     entry.appendChild(document.createTextNode(admno));
     document.getElementById('admnos').appendChild(entry);
-    document.getElementById('done').classList.remove('hidden')
       
 }
 
@@ -101,6 +100,8 @@ function upload()
   for(let o = 0 ; i <=lo.lenth; i ++){
     sumb(lo[i])
   }
+  document.getElementById('done').classList.remove('hidden')
+
   setTimeout("document.getElementById('done').classList.add('hidden')",1000);
       let s = document.getElementsByClassName('scanner')
     for(i=0;i<s.length;i++){
