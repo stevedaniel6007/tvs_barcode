@@ -20,9 +20,14 @@
         <div class="" id="reader" height="200px" width="200px"> 
           
         </div>
-        <h1 class="text-blue-500 scanner hidden font-sans font-bold text-3xl text-center mb-6">OR</h1>
+        <div id="done" class="hidden bg-white flex flex-col space-y-5 h-screen w-screen absolute top-0 left-0">
+          <img class="mx-auto w-64 h-64" src="https://i.gifer.com/7efs.gif">
+          <h1 class="mx-auto">Done</h1>
+
+        </div>
+        <h1 class="text-blue-500 scanner hidden font-sans font-bold text-3xl text-center mb-6 mt-6">Or</h1>
         <div class="flex flex-row w-screen px-3 py-3">
-        <input type="text" class="scanner hidden border border-neutral-300 rounded-sm py-2 px-3 outline-none"  placeholder="Admission Number" id="fname" name="fname"><br>
+        <input type="text" class="scanner hidden border border-neutral-300 rounded-sm py-2 px-3 outline-none w-full"  placeholder="Admission Number" id="fname" name="fname"><br>
         </div>
 <div id="kkk" class="flex flex-col space-y-2 px-4 py-6">
   
@@ -71,7 +76,7 @@ async function check(){
 check()
 const html5QrCode = new Html5Qrcode("reader");
 const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-  subm(decodedText)
+  subm(decodedText.slice(3))
 };
 
 function ccc(a){
@@ -97,9 +102,10 @@ console.log('stopped')}).catch((err) => {
   // Stop failed, handle it.
   alert(err)
 });
-    const { data, error } = await a.from('New').select('*').eq('Admission Num',parseInt(l))
+//alert(l)
+    const { data, error } = await a.from('New').select('*').eq('Admission Num',l)
 
-    console.log(data)
+    //alert(data)
     let name; let cl; let stop;
     name = data[0]["StudName"]
     cl = data[0]["Class"]
@@ -142,12 +148,17 @@ if(error){
   console.log(error)
     }
     else{
+      document.getElementById('done').classList.remove('hidden')
+      setTimeout("document.getElementById('done').classList.add('hidden')",2000);
+
       html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
-alert('Done')
+
     }    
 
 }else{
 alert('You cannot enter same value again. You have to wait for an hour between two entries.')
+html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
+
 }
 }
        </script>
