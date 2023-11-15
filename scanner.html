@@ -97,6 +97,10 @@ let sc = document.getElementsByClassName('scanner')
 
 // If you want to prefer back camera
 async function subm(l){
+  let s = document.getElementsByClassName('scanner')
+    for(i=0;i<s.length;i++){
+      s[i].classList.add('hidden')
+    }
   html5QrCode.stop().then((ignore) => {
 console.log('stopped')}).catch((err) => {
   // Stop failed, handle it.
@@ -149,8 +153,11 @@ if(error){
     }
     else{
       document.getElementById('done').classList.remove('hidden')
-      setTimeout("document.getElementById('done').classList.add('hidden')",2000);
-
+      setTimeout("document.getElementById('done').classList.add('hidden')",1000);
+      let s = document.getElementsByClassName('scanner')
+    for(i=0;i<s.length;i++){
+      s[i].classList.remove('hidden')
+    }
       html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
 
     }    
@@ -158,6 +165,10 @@ if(error){
 }else{
 alert('You cannot enter same value again. You have to wait for an hour between two entries.')
 html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
+let s = document.getElementsByClassName('scanner')
+    for(i=0;i<s.length;i++){
+      s[i].classList.remove('hidden')
+    }
 
 }
 }
