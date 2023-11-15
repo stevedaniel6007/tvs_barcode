@@ -58,7 +58,12 @@
 </div>
 <div class="flex flex-row content-center items-center px-3">
   <button id="proceed" class="font-medium font-sans mt-0 shadow-lg w-full rounded-md text-white bg-blue-500 px-6 mx-auto py-3 " onclick="ccc(document.getElementById('route'))">Proceed</button> 
-  <button class="scanner hidden font-medium font-sans mt-0 shadow-lg w-full rounded-md text-white bg-blue-500 px-6 mx-auto py-3 " onclick="subm(document.getElementById('fname').value)">Continue</button> 
+  <button class="scanner hidden font-medium font-sans mt-0 shadow-lg w-full rounded-md text-white bg-blue-500 px-6 mx-auto py-3 " onclick="addtolist(document.getElementById('fname').value)">Continue</button> 
+  <br>
+  <br>
+  <ul id="admnos">
+  </ul>
+  <button class="scanner hidden font-medium font-sans mt-0 shadow-lg w-full rounded-md text-white bg-blue-500 px-6 mx-auto py-3 " onclick="upload()">Upload</button> 
 </div>
        <script>
         
@@ -76,8 +81,30 @@ async function check(){
 check()
 const html5QrCode = new Html5Qrcode("reader");
 const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-  subm(decodedText.slice(3))
+  addtolist(decodedText.slice(3))
 };
+var lo = [];
+function addtolist(l) { 
+  var admno = l;
+  lo.push(l)
+    var entry = document.createElement('li');
+    entry.appendChild(document.createTextNode(admno));
+    list.appendChild(entry);
+    document.getElementById('done').classList.remove('hidden')
+      setTimeout("document.getElementById('done').classList.add('hidden')",1000);
+      let s = document.getElementsByClassName('scanner')
+    for(i=0;i<s.length;i++){
+      s[i].classList.remove('hidden')
+    }
+}
+
+function upload()
+{
+
+  for(let o = 0 ; i <=lo.lenth; i ++){
+    sumb(lo[i])
+  }
+}
 
 function ccc(a){
   if(a.value!=null){
@@ -152,12 +179,7 @@ if(error){
   console.log(error)
     }
     else{
-      document.getElementById('done').classList.remove('hidden')
-      setTimeout("document.getElementById('done').classList.add('hidden')",1000);
-      let s = document.getElementsByClassName('scanner')
-    for(i=0;i<s.length;i++){
-      s[i].classList.remove('hidden')
-    }
+     
       html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
 
     }    
