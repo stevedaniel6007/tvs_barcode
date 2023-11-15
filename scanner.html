@@ -89,7 +89,7 @@ function addtolist(l) {
   lo.push(l)
     var entry = document.createElement('li');
     entry.appendChild(document.createTextNode(admno));
-    list.appendChild(entry);
+    document.getElementById('admnos').appendChild(entry);
     document.getElementById('done').classList.remove('hidden')
       setTimeout("document.getElementById('done').classList.add('hidden')",1000);
       let s = document.getElementsByClassName('scanner')
