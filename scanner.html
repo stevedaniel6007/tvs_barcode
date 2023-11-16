@@ -109,7 +109,14 @@ console.log('stopped')}).catch((err) => {
 });
 //alert(l)
     const { data, error } = await a.from('New').select('*').eq('Admission Num',l)
-
+if(error){
+  alert('Please ReScan - Barcode Error')
+  html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
+let s = document.getElementsByClassName('scanner')
+    for(i=0;i<s.length;i++){
+      s[i].classList.remove('hidden')
+    }
+}
     //alert(data)
     let name; let cl; let stop;
     name = data[0]["StudName"]
