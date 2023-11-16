@@ -58,9 +58,10 @@
 </div>
 
 <div class="flex flex-col content-center items-center px-3">
-  <button class="font-medium font-sans mt-0 shadow-lg w-full rounded-md text-white bg-black px-6 mx-auto py-3 " onclick="window.location.reload()">Change Bus/Route</button> 
-<div class="flex flex-row space-x-2">
-  <button id="proceed" class="font-medium font-sans mt-0 shadow-lg w-full rounded-md text-white bg-blue-500 px-6 mx-auto py-3 " onclick="ccc(document.getElementById('route'))">Proceed</button> 
+  <button  class="font-medium mb-2 font-sans mt-0 shadow-lg w-full rounded-md text-white bg-black px-6 mx-auto py-3 " onclick="window.location.reload()">Change Bus/Route</button> 
+<div class="flex flex-row">
+  <button id="proceed" class="scanner hidden 
+  font-medium font-sans mt-0 shadow-lg w-full rounded-md text-white bg-blue-500 px-6 mx-auto py-3 " onclick="ccc(document.getElementById('route'))">Proceed</button> 
   <button class="scanner hidden font-medium font-sans mt-0 shadow-lg w-full rounded-md text-white bg-blue-700 px-6 mx-auto py-3 " onclick="subm(document.getElementById('fname').value)">Continue</button> 
 </div>
 </div>   <script>
@@ -79,7 +80,7 @@ async function check(){
 check()
 const html5QrCode = new Html5Qrcode("reader");
 const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-alert(decodedText)
+
   subm(decodedText.slice(3))
 };
 
