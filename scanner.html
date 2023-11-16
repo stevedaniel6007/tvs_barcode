@@ -76,6 +76,7 @@ async function check(){
 check()
 const html5QrCode = new Html5Qrcode("reader");
 const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+alert(decodedText)
   subm(decodedText.slice(3))
 };
 
