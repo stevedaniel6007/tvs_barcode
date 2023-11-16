@@ -41,7 +41,7 @@
     </select>
         <label for="shift">Choose a shift:</label>
 
-<select onchange="changetrip()" class="border border-neutral-300 rounded-sm py-2 px-3 outline-none"  name="shift" id="shift">
+<select class="border border-neutral-300 rounded-sm py-2 px-3 outline-none"  name="shift" id="shift">
   <option value="FN">FN</option>
   <option value="AN">AN</option>
 
@@ -92,26 +92,7 @@ const qrCodeSuccessCallback = (decodedText, decodedResult) => {
 //alert(decodedText)
   subm(decodedText.slice(3))
 };
-function changetrip(){
-  var a = document.getElementById('shift').value
-  if(a=="AN"){
-    selectobject = document.getElementById('trip');
-    for (var i=0; i<selectobject.length; i++) {
-    if (selectobject.options[i].value == 'activity')
-        selectobject.remove(i);
-}
-  }
-  else{
-    // create option using DOM
-const newOption = document.createElement('option');
-const optionText = document.createTextNode('Activity');
 
-// set option text
-newOption.appendChild(optionText);
-// and option value
-newOption.setAttribute('value','Option Value');
-  }
-}
 
 function ccc(a){
   if(a.value!=null){
